@@ -14,7 +14,7 @@ export async function createReport(req, res, next) {
     const report = await reportService.create(req.body);
     res.status(201).json({
       ok: true,
-      message: "Denuncia registrada com sucesso.",
+      message: "Denúncia registrada com sucesso.",
       report,
     });
   } catch (error) {

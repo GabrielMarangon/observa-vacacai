@@ -5,8 +5,8 @@ const occurrenceTypes = [
   "Descarte irregular de lixo",
   "Esgoto no rio",
   "Desmatamento de mata ciliar",
-  "Erosao",
-  "Ocupacao irregular",
+  "Erosão",
+  "Ocupação irregular",
   "Queimadas",
   "Outros",
 ];
@@ -71,11 +71,11 @@ export default function ReportPage() {
   return (
     <section className="page narrow-page">
       <div className="form-card">
-        <h1>Nova denuncia</h1>
-        <p>Fluxo funcional inicial para registro de ocorrencias ambientais com georreferenciamento.</p>
+        <h1>Nova denúncia</h1>
+        <p>Fluxo inicial para registro de ocorrências ambientais com georreferenciamento.</p>
         <form className="stack-form" onSubmit={handleSubmit}>
           <label>
-            Tipo da ocorrencia
+            Tipo da ocorrência
             <select name="type" value={formData.type} onChange={handleChange}>
               {occurrenceTypes.map((type) => (
                 <option key={type} value={type}>
@@ -85,7 +85,7 @@ export default function ReportPage() {
             </select>
           </label>
           <label>
-            Descricao
+            Descrição
             <textarea
               name="description"
               rows="5"
@@ -123,7 +123,7 @@ export default function ReportPage() {
               checked={formData.anonymous}
               onChange={handleChange}
             />
-            Enviar denuncia de forma anonima
+            Enviar denúncia de forma anônima
           </label>
           <div className="form-grid">
             <label>
@@ -151,12 +151,12 @@ export default function ReportPage() {
           </div>
           <label>
             Imagem
-            <input type="text" placeholder="Campo preparado para upload futuro" disabled />
+            <input type="text" placeholder="Campo reservado para upload futuro" disabled />
           </label>
           {feedback.error ? <p className="feedback-error">{feedback.error}</p> : null}
           {feedback.success ? <p className="feedback-success">{feedback.success}</p> : null}
           <button className="button" type="submit">
-            {feedback.loading ? "Enviando..." : "Enviar denuncia"}
+            {feedback.loading ? "Enviando..." : "Enviar denúncia"}
           </button>
         </form>
       </div>

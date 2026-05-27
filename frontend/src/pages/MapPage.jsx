@@ -48,10 +48,10 @@ export default function MapPage() {
       <div className="panel">
         <h1>Mapa interativo</h1>
         <p>
-          Esta versao inicial ja exibe as denuncias em mapa e prepara o terreno
-          para camadas geoespaciais do Vacacai.
+          Esta versão inicial já exibe as denúncias no mapa e prepara o terreno
+          para camadas geoespaciais do Vacacaí.
         </p>
-        {state.loading ? <p>Carregando mapa e ocorrencias...</p> : null}
+        {state.loading ? <p>Carregando mapa e ocorrências...</p> : null}
         {state.error ? <p className="feedback-error">{state.error}</p> : null}
         <ReportsMap reports={state.reports} />
         <div className="report-grid">

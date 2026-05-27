@@ -2,23 +2,23 @@ export default function SurveyPage() {
   return (
     <section className="page narrow-page">
       <div className="form-card">
-        <h1>Questionario comunitario</h1>
-        <p>Espaco inicial para diagnostico de percepcao ambiental dos moradores.</p>
+        <h1>Questionário comunitário</h1>
+        <p>Espaço inicial para diagnóstico da percepção ambiental dos moradores.</p>
         <form className="stack-form">
           <label>
-            Com que frequencia voce percebe alagamentos na sua regiao?
+            Com que frequência você percebe alagamentos na sua região?
             <select>
               <option>Raramente</option>
-              <option>As vezes</option>
+              <option>Às vezes</option>
               <option>Frequentemente</option>
             </select>
           </label>
           <label>
-            Quais os principais problemas ambientais observados?
-            <textarea rows="4" placeholder="Descreva sua percepcao" />
+            Quais são os principais problemas ambientais observados?
+            <textarea rows="4" placeholder="Descreva sua percepção" />
           </label>
           <button className="button" type="submit">
-            Responder questionario
+            Responder questionário
           </button>
         </form>
       </div>

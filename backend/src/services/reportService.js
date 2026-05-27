@@ -10,17 +10,17 @@ function normalizeBoolean(value) {
 
 function validateReportPayload(payload) {
   if (!payload.type?.trim()) {
-    throw new Error("Informe o tipo da ocorrencia.");
+    throw new Error("Informe o tipo da ocorrência.");
   }
 
   if (!payload.description?.trim()) {
-    throw new Error("Informe a descricao da denuncia.");
+    throw new Error("Informe a descrição da denúncia.");
   }
 
   if (!normalizeBoolean(payload.anonymous)) {
     if (!payload.reporterName?.trim() && !payload.contact?.trim()) {
       throw new Error(
-        "Informe nome ou contato do denunciante, ou marque a opcao anonima."
+        "Informe o nome ou o contato do denunciante, ou marque a opção anônima."
       );
     }
   }
@@ -29,7 +29,7 @@ function validateReportPayload(payload) {
   const longitude = Number(payload.longitude);
 
   if (Number.isNaN(latitude) || Number.isNaN(longitude)) {
-    throw new Error("Informe latitude e longitude validas.");
+    throw new Error("Informe latitude e longitude válidas.");
   }
 }
 
@@ -49,8 +49,8 @@ export const reportService = {
   async create(payload) {
     validateReportPayload(payload);
 
-    // O armazenamento em memoria fica como camada temporaria.
-    // A futura persistencia em PostgreSQL deve substituir este push.
+    // O armazenamento em memória fica como camada temporária.
+    // A futura persistência em PostgreSQL deve substituir este push.
     const report = {
       id: memoryStore.reports.length + 1,
       type: payload.type.trim(),

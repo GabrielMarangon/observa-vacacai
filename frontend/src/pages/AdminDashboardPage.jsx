@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { apiFetch } from "../lib/api";
+import { formatOccurrenceType, formatReportStatus } from "../lib/formatters";
 
 export default function AdminDashboardPage() {
   const [state, setState] = useState({
@@ -64,13 +65,13 @@ export default function AdminDashboardPage() {
       <div className="panel">
         <h1>Painel do gestor</h1>
         <p>
-          Estrutura inicial para listagem de denuncias, filtros e leitura rapida
-          das ocorrencias registradas.
+          Estrutura inicial para listagem de denúncias, filtros e leitura rápida
+          das ocorrências registradas.
         </p>
         <div className="dashboard-grid">
           <div className="metric-card">
             <strong>{metrics.total}</strong>
-            <span>Ocorrencias totais</span>
+            <span>Ocorrências totais</span>
           </div>
           <div className="metric-card">
             <strong>{metrics.abertas}</strong>
@@ -78,7 +79,7 @@ export default function AdminDashboardPage() {
           </div>
           <div className="metric-card">
             <strong>{metrics.analise}</strong>
-            <span>Em analise</span>
+            <span>Em análise</span>
           </div>
         </div>
         <div className="toolbar">
@@ -92,11 +93,11 @@ export default function AdminDashboardPage() {
             >
               <option value="todos">Todos</option>
               <option value="recebida">Recebida</option>
-              <option value="em_analise">Em analise</option>
+              <option value="em_analise">Em análise</option>
             </select>
           </label>
         </div>
-        {state.loading ? <p>Carregando denuncias...</p> : null}
+        {state.loading ? <p>Carregando denúncias...</p> : null}
         {state.error ? <p className="feedback-error">{state.error}</p> : null}
         <div className="table-shell">
           <table className="data-table">
@@ -104,15 +105,15 @@ export default function AdminDashboardPage() {
               <tr>
                 <th>Tipo</th>
                 <th>Status</th>
-                <th>Descricao</th>
-                <th>Localizacao</th>
+                <th>Descrição</th>
+                <th>Localização</th>
               </tr>
             </thead>
             <tbody>
               {filteredReports.map((report) => (
                 <tr key={report.id}>
-                  <td>{report.type}</td>
-                  <td>{report.status}</td>
+                  <td>{formatOccurrenceType(report.type)}</td>
+                  <td>{formatReportStatus(report.status)}</td>
                   <td>{report.description}</td>
                   <td>
                     {report.latitude}, {report.longitude}

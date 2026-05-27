@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 
 const navItems = [
-  { to: "/", label: "Inicio" },
-  { to: "/denuncias/nova", label: "Nova denuncia" },
-  { to: "/sugestoes", label: "Sugestoes" },
-  { to: "/questionario", label: "Questionario" },
+  { to: "/", label: "Início" },
+  { to: "/denuncias/nova", label: "Nova denúncia" },
+  { to: "/sugestoes", label: "Sugestões" },
+  { to: "/questionario", label: "Questionário" },
   { to: "/alertas", label: "Alertas" },
   { to: "/mapa", label: "Mapa" },
   { to: "/gestor", label: "Painel do gestor" },
@@ -18,7 +18,7 @@ export default function MainLayout({ children }) {
           <span className="brand-mark">OV</span>
           <span>
             <strong>Observa Vacacai</strong>
-            <small>Participacao cidada no Rio Vacacai</small>
+            <small>Participação cidadã no Rio Vacacai</small>
           </span>
         </Link>
         <nav className="nav">
@@ -45,7 +45,7 @@ export default function MainLayout({ children }) {
       </header>
       <main>{children}</main>
       <footer className="footer">
-        <p>Observa Vacacai • Sao Gabriel/RS • Monitoramento socioambiental colaborativo</p>
+        <p>Observa Vacacai | São Gabriel/RS | Monitoramento socioambiental colaborativo</p>
       </footer>
     </div>
   );

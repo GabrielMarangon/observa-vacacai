@@ -1,24 +1,24 @@
 const homeContent = {
   hero: {
     title: "Observa Vacacai",
-    subtitle: "Participacao cidada e monitoramento socioambiental em Sao Gabriel/RS",
+    subtitle: "Participação cidadã e monitoramento socioambiental em São Gabriel/RS",
   },
   institutionalMessage:
-    "Canal colaborativo para registrar ocorrencias, compartilhar alertas e fortalecer o cuidado com o Rio Vacacai.",
+    "Canal colaborativo para registrar ocorrências, compartilhar alertas e fortalecer o cuidado com o Rio Vacacaí.",
   alerts: [
     {
       id: 1,
-      title: "Nivel do rio em observacao",
+      title: "Nível do rio em observação",
       severity: "info",
     },
     {
       id: 2,
-      title: "Mutirao de mata ciliar em preparacao",
+      title: "Mutirão de mata ciliar em preparação",
       severity: "success",
     },
   ],
   quickLinks: [
-    { label: "Nova denuncia", href: "/denuncias/nova" },
+    { label: "Nova denúncia", href: "/denuncias/nova" },
     { label: "Mapa interativo", href: "/mapa" },
     { label: "Alertas", href: "/alertas" },
   ],

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { formatOccurrenceType, formatReportStatus } from "../lib/formatters";
 
 const defaultCenter = [-30.3361, -54.3218];
 
@@ -56,7 +57,7 @@ export default function ReportsMap({ reports = [], height = 420 }) {
         });
 
         marker.bindPopup(
-          `<strong>${report.type}</strong><br/>${report.description}<br/>Status: ${report.status}`
+          `<strong>${formatOccurrenceType(report.type)}</strong><br/>${report.description}<br/>Status: ${formatReportStatus(report.status)}`
         );
 
         marker.addTo(layer);

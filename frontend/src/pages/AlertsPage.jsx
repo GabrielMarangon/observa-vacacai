@@ -1,8 +1,8 @@
 import StatusBadge from "../components/StatusBadge";
 
 const alerts = [
-  { title: "Atencao para acumulado de chuva", tone: "warning" },
-  { title: "Mutirao de limpeza confirmado", tone: "success" },
+  { title: "Atenção para acumulado de chuva", tone: "warning" },
+  { title: "Mutirão de limpeza confirmado", tone: "success" },
   { title: "Monitoramento de margens em andamento", tone: "info" },
 ];
 
@@ -11,7 +11,7 @@ export default function AlertsPage() {
     <section className="page">
       <div className="panel">
         <h1>Alertas e avisos</h1>
-        <p>Area dedicada a comunicados preventivos e informes operacionais.</p>
+        <p>Área dedicada a comunicados preventivos e informes operacionais.</p>
         <div className="alert-list">
           {alerts.map((alert) => (
             <div key={alert.title} className="alert-item">

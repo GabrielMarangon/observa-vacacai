@@ -11,7 +11,7 @@ export default function LoginPage() {
           </label>
           <label>
             Senha
-            <input type="password" placeholder="Sua senha" />
+            <input type="password" placeholder="Digite sua senha" />
           </label>
           <button className="button" type="submit">
             Acessar

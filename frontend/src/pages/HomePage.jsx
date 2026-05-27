@@ -9,57 +9,57 @@ import { apiFetch } from "../lib/api";
 const features = [
   {
     icon: "L",
-    title: "Denuncias ambientais",
+    title: "Denúncias ambientais",
     description:
-      "Registre descarte irregular, esgoto, queimadas, erosao e outras ocorrencias com foto e localizacao.",
+      "Registre descarte irregular, esgoto, queimadas, erosão e outras ocorrências com foto e localização.",
   },
   {
     icon: "M",
     title: "Mapa colaborativo",
     description:
-      "Visualize pontos criticos do Rio Vacacai e acompanhe a distribuicao espacial das ocorrencias.",
+      "Visualize pontos críticos do Rio Vacacai e acompanhe a distribuição espacial das ocorrências.",
   },
   {
     icon: "A",
     title: "Alertas preventivos",
     description:
-      "Receba avisos sobre risco ambiental, enchentes, acoes emergenciais e recuperacao da mata ciliar.",
+      "Receba avisos sobre risco ambiental, enchentes, ações emergenciais e recuperação da mata ciliar.",
   },
   {
     icon: "G",
     title: "Painel para gestores",
     description:
-      "Filtre denuncias, acompanhe status, gere priorizacao e visualize ocorrencias no mapa.",
+      "Filtre denúncias, acompanhe o status, defina prioridades e visualize ocorrências no mapa.",
   },
 ];
 
 const quickAccess = [
   {
     to: "/denuncias/nova",
-    title: "Nova denuncia",
-    description: "Envie uma ocorrencia com foto, descricao e localizacao.",
+    title: "Nova denúncia",
+    description: "Envie uma ocorrência com foto, descrição e localização.",
   },
   {
     to: "/sugestoes",
-    title: "Sugestoes",
+    title: "Sugestões",
     description: "Compartilhe propostas de melhoria para o rio e seu entorno.",
   },
   {
     to: "/questionario",
-    title: "Questionario",
-    description: "Responda pesquisas para apoiar o diagnostico socioambiental.",
+    title: "Questionário",
+    description: "Responda pesquisas para apoiar o diagnóstico socioambiental.",
   },
   {
     to: "/mapa",
     title: "Mapa interativo",
-    description: "Acompanhe ocorrencias e areas de atencao em um unico painel.",
+    description: "Acompanhe ocorrências e áreas de atenção em um único painel.",
   },
 ];
 
 const alerts = [
-  "Nivel do rio em observacao nas proximidades da area urbana.",
-  "Mutirao de restauracao da mata ciliar previsto para o proximo sabado.",
-  "Campanha de descarte regular de residuos em bairros lindeiros ao Vacacai.",
+  "Nível do rio em observação nas proximidades da área urbana.",
+  "Mutirão de restauração da mata ciliar previsto para o próximo sábado.",
+  "Campanha de descarte regular de resíduos em bairros lindeiros ao Vacacaí.",
 ];
 
 export default function HomePage() {
@@ -102,33 +102,33 @@ export default function HomePage() {
     <div className="page">
       <section className="hero">
         <div className="hero-copy">
-          <span className="eyebrow">Participacao cidada e monitoramento territorial</span>
+          <span className="eyebrow">Participação cidadã e monitoramento territorial</span>
           <h1>Observa Vacacai</h1>
           <p>
             Plataforma web para moradores, pesquisadores e gestores acompanharem
-            ocorrencias ambientais, alertas preventivos e a recuperacao do Rio
-            Vacacai em Sao Gabriel/RS.
+            ocorrências ambientais, alertas preventivos e a recuperação do Rio
+            Vacacaí em São Gabriel/RS.
           </p>
           <div className="hero-actions">
             <Link className="button" to="/denuncias/nova">
-              Registrar denuncia
+              Registrar denúncia
             </Link>
             <Link className="button button-secondary" to="/mapa">
               Explorar mapa
             </Link>
           </div>
           <div className="hero-status">
-            <StatusBadge tone="info">Monitoramento comunitario ativo</StatusBadge>
-            <StatusBadge tone="success">Estrutura pronta para integracao climatica</StatusBadge>
+            <StatusBadge tone="info">Monitoramento comunitário ativo</StatusBadge>
+            <StatusBadge tone="success">Estrutura pronta para integração climática</StatusBadge>
           </div>
         </div>
         <div className="hero-panel">
           <div className="hero-river" />
           <div className="hero-card">
-            <strong>Painel territorial em evolucao</strong>
+            <strong>Painel territorial em evolução</strong>
             <p>
-              Base preparada para integrar denuncias georreferenciadas,
-              questionarios, camadas de APP e dados de risco.
+              Base preparada para integrar denúncias georreferenciadas,
+              questionários, camadas de APP e dados de risco.
             </p>
           </div>
         </div>
@@ -136,12 +136,12 @@ export default function HomePage() {
 
       <section className="section-grid">
         <SectionTitle
-          eyebrow="Conexao com a API"
+          eyebrow="Conexão com a API"
           title="Status institucional em tempo real"
-          description="A home ja consome o backend local e exibe resposta da API."
+          description="A página inicial já consome o backend e exibe a resposta da API."
         />
         <div className="panel api-panel">
-          {apiState.loading ? <p>Carregando informacoes do sistema...</p> : null}
+          {apiState.loading ? <p>Carregando informações do sistema...</p> : null}
           {apiState.error ? <p className="feedback-error">{apiState.error}</p> : null}
           {apiState.data ? (
             <>
@@ -160,9 +160,9 @@ export default function HomePage() {
 
       <section className="section-grid">
         <SectionTitle
-          eyebrow="Acessos rapidos"
+          eyebrow="Acessos rápidos"
           title="Entradas principais do sistema"
-          description="A navegacao foi planejada para funcionar bem em celular e desktop."
+          description="A navegação foi planejada para funcionar bem em celular e desktop."
         />
         <div className="quick-grid">
           {quickAccess.map((item) => (
@@ -175,7 +175,7 @@ export default function HomePage() {
         <SectionTitle
           eyebrow="Funcionalidades"
           title="Base inicial do projeto"
-          description="A estrutura ja contempla os modulos centrais para participacao cidada e gestao publica."
+          description="A estrutura já contempla os módulos centrais para participação cidadã e gestão pública."
         />
         <div className="feature-grid">
           {features.map((item) => (
@@ -189,19 +189,19 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Objetivos"
             title="O que o sistema pretende resolver"
-            description="Transparencia, resposta mais rapida e inteligencia territorial para o Vacacai."
+            description="Transparência, resposta mais rápida e inteligência territorial para o Vacacaí."
           />
           <ul className="bullet-list">
-            <li>Facilitar o envio de denuncias com evidencia visual e espacial.</li>
-            <li>Dar visibilidade a situacoes de risco e areas vulneraveis.</li>
-            <li>Organizar a resposta dos gestores em um painel unico.</li>
-            <li>Construir historico para politicas de prevencao e recuperacao ambiental.</li>
+            <li>Facilitar o envio de denúncias com evidência visual e espacial.</li>
+            <li>Dar visibilidade a situações de risco e áreas vulneráveis.</li>
+            <li>Organizar a resposta dos gestores em um painel único.</li>
+            <li>Construir histórico para políticas de prevenção e recuperação ambiental.</li>
           </ul>
         </div>
         <div className="panel panel-alerts">
           <SectionTitle
             eyebrow="Alertas e avisos"
-            title="Comunicacao preventiva"
+            title="Comunicação preventiva"
             description="Exemplo de bloco para alertas ativos do sistema."
           />
           <div className="alert-list">
