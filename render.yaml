@@ -25,6 +25,18 @@ services:
         sync: false
       - key: AUTH_TOKEN_TTL_HOURS
         value: "12"
+      - key: WEATHER_API_URL
+        value: "https://api.open-meteo.com/v1/forecast"
+      - key: WEATHER_LATITUDE
+        value: "-30.33639"
+      - key: WEATHER_LONGITUDE
+        value: "-54.32"
+      - key: WEATHER_LOCATION_LABEL
+        value: "São Gabriel/RS"
+      - key: WEATHER_TIMEZONE
+        value: "America/Sao_Paulo"
+      - key: WEATHER_CACHE_MINUTES
+        value: "15"
 
   - type: web
     runtime: static

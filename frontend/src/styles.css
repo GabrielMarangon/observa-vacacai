@@ -556,9 +556,20 @@ a {
   background: rgba(198, 168, 90, 0.2);
 }
 
+.status-danger {
+  color: #8d2424;
+  background: rgba(196, 66, 66, 0.16);
+}
+
 .status-neutral {
   color: #4f6765;
   background: rgba(13, 93, 86, 0.08);
+}
+
+.weather-meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #58726f;
 }
 
 .feedback-error,

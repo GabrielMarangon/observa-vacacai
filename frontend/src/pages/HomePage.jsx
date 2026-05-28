@@ -7,25 +7,26 @@ const fallbackWeatherPanel = {
   title: "Previsão de chuva e risco de inundação",
   location: "São Gabriel/RS",
   summary:
-    "Acompanhe aqui a previsão de chuva e os avisos para a área urbana do Rio Vacacaí.",
-  riskLabel: "Sem dados automáticos",
+    "Não foi possível atualizar a previsão automática agora. Tente novamente em instantes.",
+  riskLabel: "Sem atualização",
   riskTone: "neutral",
   metrics: [
     { label: "Chuva em 24h", value: "-- mm" },
     { label: "Chuva em 48h", value: "-- mm" },
-    { label: "Risco de inundação", value: "Em observação" },
+    { label: "Chance máxima", value: "-- %" },
   ],
+  meta: "Fonte meteorológica: Open-Meteo",
 };
 
 const fallbackAlerts = [
   {
     id: 1,
-    title: "Em caso de chuva forte, acompanhe os avisos oficiais.",
+    title: "Os dados automáticos de chuva estão indisponíveis no momento.",
     severity: "warning",
   },
   {
     id: 2,
-    title: "Se houver cheia, siga as orientações da Defesa Civil.",
+    title: "Em caso de alerta local, acompanhe os avisos oficiais da Defesa Civil.",
     severity: "info",
   },
 ];
@@ -129,6 +130,7 @@ export default function HomePage() {
               alerta, acompanhe os avisos oficiais.
             </p>
           ) : null}
+          {weatherPanel.meta ? <p className="weather-meta">{weatherPanel.meta}</p> : null}
         </div>
       </section>
 
