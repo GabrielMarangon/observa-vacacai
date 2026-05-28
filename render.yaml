@@ -25,6 +25,8 @@ services:
         sync: false
       - key: AUTH_TOKEN_TTL_HOURS
         value: "12"
+      - key: SEED_MOCK_REPORTS
+        value: "false"
       - key: WEATHER_API_URL
         value: "https://api.open-meteo.com/v1/forecast"
       - key: WEATHER_LATITUDE

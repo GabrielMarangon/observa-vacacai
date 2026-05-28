@@ -34,7 +34,14 @@ export function formatDateTime(value) {
 }
 
 export function hasCoordinates(report) {
-  return Number.isFinite(Number(report?.latitude)) && Number.isFinite(Number(report?.longitude));
+  const latitude = Number(report?.latitude);
+  const longitude = Number(report?.longitude);
+
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+    return false;
+  }
+
+  return !(latitude === 0 && longitude === 0);
 }
 
 export function formatCoordinates(report) {

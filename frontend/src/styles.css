@@ -499,6 +499,30 @@ a {
   width: auto;
 }
 
+.location-picker-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.location-picker-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.location-picker-meta {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #214441;
+  font-weight: 600;
+}
+
 .map-placeholder {
   min-height: 360px;
   display: grid;

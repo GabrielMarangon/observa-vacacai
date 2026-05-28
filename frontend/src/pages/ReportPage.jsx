@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import LocationPickerMap from "../components/LocationPickerMap";
 import { apiFetch } from "../lib/api";
 
 const occurrenceTypes = [
@@ -43,12 +44,24 @@ export default function ReportPage() {
     error: "",
     success: "",
   });
+  const hasSelectedCoordinates =
+    formData.latitude !== "" &&
+    formData.longitude !== "" &&
+    !(Number(formData.latitude) === 0 && Number(formData.longitude) === 0);
 
   function handleChange(event) {
     const { name, value, type, checked } = event.target;
     setFormData((current) => ({
       ...current,
       [name]: type === "checkbox" ? checked : value,
+    }));
+  }
+
+  function handleLocationSelect({ latitude, longitude }) {
+    setFormData((current) => ({
+      ...current,
+      latitude,
+      longitude,
     }));
   }
 
@@ -115,6 +128,14 @@ export default function ReportPage() {
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  }
+
+  function clearCoordinates() {
+    setFormData((current) => ({
+      ...current,
+      latitude: "",
+      longitude: "",
+    }));
   }
 
   async function handleSubmit(event) {
@@ -207,6 +228,35 @@ export default function ReportPage() {
               onChange={handleChange}
             />
           </label>
+          <div className="location-picker-card">
+            <div className="location-picker-header">
+              <strong>Marque o local no mapa</strong>
+              {hasSelectedCoordinates ? (
+                <button
+                  className="button button-secondary"
+                  type="button"
+                  onClick={clearCoordinates}
+                >
+                  Limpar ponto
+                </button>
+              ) : null}
+            </div>
+            <p className="form-helper">
+              Clique no mapa para marcar o ponto da ocorrência. Isso ajuda a exibir
+              corretamente a denúncia no mapa do app.
+            </p>
+            <LocationPickerMap
+              latitude={formData.latitude}
+              longitude={formData.longitude}
+              onChange={handleLocationSelect}
+            />
+            {hasSelectedCoordinates ? (
+              <p className="location-picker-meta">
+                Ponto marcado: {Number(formData.latitude).toFixed(6)},{" "}
+                {Number(formData.longitude).toFixed(6)}
+              </p>
+            ) : null}
+          </div>
           <label>
             Nome do denunciante
             <input
@@ -263,8 +313,9 @@ export default function ReportPage() {
             </label>
           </div>
           <p className="form-helper">
-            Se você souber as coordenadas, elas ajudam no mapa. Caso contrário,
-            basta informar bem o endereço e a referência.
+            Se preferir, você também pode ajustar latitude e longitude manualmente.
+            Evite informar 0,0, porque esse ponto não corresponde ao local real da
+            denúncia.
           </p>
           <label>
             Foto do local

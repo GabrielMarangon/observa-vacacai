@@ -90,6 +90,18 @@ function validateReportPayload(payload) {
     throw new Error("Informe latitude e longitude válidas.");
   }
 
+  if ((informedLatitude || informedLongitude) && Math.abs(latitude) > 90) {
+    throw new Error("Informe uma latitude válida.");
+  }
+
+  if ((informedLatitude || informedLongitude) && Math.abs(longitude) > 180) {
+    throw new Error("Informe uma longitude válida.");
+  }
+
+  if ((informedLatitude || informedLongitude) && latitude === 0 && longitude === 0) {
+    throw new Error("Selecione um ponto real no mapa ou deixe as coordenadas em branco.");
+  }
+
   if (payload.imageDataUrl && !payload.imageDataUrl.startsWith("data:image/")) {
     throw new Error("A imagem enviada não é válida.");
   }
