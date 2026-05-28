@@ -174,7 +174,6 @@ function buildDailyNotice(risk, rain24h, rain48h, maxProbability) {
       tone: "danger",
       title: "Risco elevado para chuva forte e alagamentos",
       message: `Há previsão de ${rain48hText} nas próximas 48h, com chance de chuva de até ${probabilityText}. Evite áreas ribeirinhas e pontos baixos.`,
-      note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
     };
   }
 
@@ -184,7 +183,6 @@ function buildDailyNotice(risk, rain24h, rain48h, maxProbability) {
       tone: "warning",
       title: "Atenção para chuva nas próximas horas",
       message: `A previsão indica ${rain24hText} em 24h e ${rain48hText} em 48h. Vale acompanhar os avisos locais e observar áreas suscetíveis a alagamento.`,
-      note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
     };
   }
 
@@ -193,7 +191,6 @@ function buildDailyNotice(risk, rain24h, rain48h, maxProbability) {
     tone: "success",
     title: "Situação estável no momento",
     message: `Sem previsão de chuva volumosa. O acumulado estimado é de ${rain24hText} em 24h, com chance máxima de ${probabilityText}.`,
-    note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
   };
 }
 
@@ -264,7 +261,6 @@ function buildFallbackContent() {
       title: "A previsão automática está sendo atualizada",
       message:
         "Em caso de chuva forte ou situação de risco, acompanhe os avisos oficiais e use os contatos de emergência abaixo.",
-      note: "Aviso automático do app.",
     },
     alerts: [
       {

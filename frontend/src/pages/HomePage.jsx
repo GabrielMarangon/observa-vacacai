@@ -24,7 +24,6 @@ const fallbackDailyNotice = {
   title: "A previsão automática está sendo atualizada",
   message:
     "Em caso de chuva forte ou situação de risco, acompanhe os avisos oficiais e use os contatos de emergência abaixo.",
-  note: "Aviso automático do app.",
 };
 
 const fallbackAlerts = [
@@ -122,7 +121,6 @@ export default function HomePage() {
           <span className="eyebrow">Aviso do dia</span>
           <h2>{dailyNotice.title}</h2>
           <p>{dailyNotice.message}</p>
-          {dailyNotice.note ? <small>{dailyNotice.note}</small> : null}
         </div>
         <StatusBadge tone={dailyNotice.tone}>{dailyNotice.label}</StatusBadge>
       </section>
