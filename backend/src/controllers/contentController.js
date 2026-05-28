@@ -1,6 +1,6 @@
 const homeContent = {
   hero: {
-    title: "Observa Vacacai",
+    title: "Observa Vacacaí",
     subtitle: "Participação cidadã e monitoramento socioambiental em São Gabriel/RS",
   },
   institutionalMessage:

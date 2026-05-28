@@ -399,6 +399,25 @@ a {
   margin: 0.8rem 0;
 }
 
+.report-card-image {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+}
+
+.report-address {
+  margin: 0;
+  font-weight: 600;
+  color: #214441;
+}
+
+.report-card-meta {
+  display: grid;
+  gap: 0.35rem;
+}
+
 .toolbar {
   margin-top: 1.2rem;
   margin-bottom: 1rem;
@@ -501,6 +520,107 @@ a {
   color: #58726f;
 }
 
+.form-helper {
+  margin: -0.25rem 0 0;
+  font-size: 0.92rem;
+  color: #58726f;
+}
+
+.image-preview-card {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.image-preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.toolbar-wrap {
+  flex-wrap: wrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.chart-panel h2 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.chart-list {
+  display: grid;
+  gap: 0.95rem;
+}
+
+.chart-row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.chart-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.chart-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(13, 93, 86, 0.08);
+}
+
+.chart-fill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.summary-list {
+  display: grid;
+  gap: 0.7rem;
+  padding-left: 1.1rem;
+  color: #365451;
+}
+
+.cell-note {
+  margin-top: 0.35rem;
+  color: #58726f;
+  font-size: 0.88rem;
+}
+
+.table-link {
+  color: var(--primary);
+  font-weight: 600;
+}
+
 .footer {
   padding: 1.2rem;
   text-align: center;
@@ -516,6 +636,7 @@ a {
   .two-column,
   .quick-grid,
   .feature-grid,
+  .analytics-grid,
   .dashboard-grid,
   .form-grid,
   .report-grid {

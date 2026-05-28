@@ -22,8 +22,8 @@ export default function MainLayout({ children }) {
         <Link to="/" className="brand">
           <span className="brand-mark">OV</span>
           <span>
-            <strong>Observa Vacacai</strong>
-            <small>Participação cidadã no Rio Vacacai</small>
+            <strong>Observa Vacacaí</strong>
+            <small>Participação cidadã no Rio Vacacaí</small>
           </span>
         </Link>
         <nav className="nav">
@@ -59,7 +59,7 @@ export default function MainLayout({ children }) {
       </header>
       <main>{children}</main>
       <footer className="footer">
-        <p>Observa Vacacai | São Gabriel/RS | Monitoramento socioambiental colaborativo</p>
+        <p>Observa Vacacaí | São Gabriel/RS | Monitoramento socioambiental colaborativo</p>
       </footer>
     </div>
   );

@@ -46,10 +46,11 @@ export default function MapPage() {
   return (
     <section className="page">
       <div className="panel">
-        <h1>Mapa interativo</h1>
+        <h1>Mapa interativo do Vacacaí</h1>
         <p>
-          Esta versão inicial já exibe as denúncias no mapa e prepara o terreno
-          para camadas geoespaciais do Vacacaí.
+          Esta visão permite alternar entre ruas e satélite. As denúncias aparecem
+          no mapa quando houver coordenadas, e todas seguem listadas com endereço
+          logo abaixo.
         </p>
         {state.loading ? <p>Carregando mapa e ocorrências...</p> : null}
         {state.error ? <p className="feedback-error">{state.error}</p> : null}

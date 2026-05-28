@@ -1,9 +1,24 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { formatOccurrenceType, formatReportStatus } from "../lib/formatters";
+import {
+  formatAddress,
+  formatCoordinates,
+  formatOccurrenceType,
+  formatReportStatus,
+  hasCoordinates,
+} from "../lib/formatters";
 
 const defaultCenter = [-30.3361, -54.3218];
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
 export default function ReportsMap({ reports = [], height = 420 }) {
   const mapElementRef = useRef(null);
@@ -17,9 +32,29 @@ export default function ReportsMap({ reports = [], height = 420 }) {
 
     const map = L.map(mapElementRef.current).setView(defaultCenter, 13);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    const streetLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
-    }).addTo(map);
+    });
+
+    const satelliteLayer = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      {
+        attribution:
+          "Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      }
+    );
+
+    streetLayer.addTo(map);
+    L.control
+      .layers(
+        {
+          Ruas: streetLayer,
+          Satélite: satelliteLayer,
+        },
+        null,
+        { position: "topright" }
+      )
+      .addTo(map);
 
     mapInstanceRef.current = map;
     layerRef.current = L.layerGroup().addTo(map);
@@ -42,11 +77,7 @@ export default function ReportsMap({ reports = [], height = 420 }) {
     layer.clearLayers();
 
     const points = reports
-      .filter(
-        (report) =>
-          Number.isFinite(Number(report.latitude)) &&
-          Number.isFinite(Number(report.longitude))
-      )
+      .filter((report) => hasCoordinates(report))
       .map((report) => {
         const marker = L.circleMarker([Number(report.latitude), Number(report.longitude)], {
           radius: 8,
@@ -56,8 +87,17 @@ export default function ReportsMap({ reports = [], height = 420 }) {
           fillOpacity: 0.75,
         });
 
+        const imageBlock = report.imageDataUrl
+          ? `<img src="${report.imageDataUrl}" alt="Foto da denúncia" style="display:block;width:180px;max-width:100%;margin-top:8px;border-radius:12px;" />`
+          : "";
+
         marker.bindPopup(
-          `<strong>${formatOccurrenceType(report.type)}</strong><br/>${report.description}<br/>Status: ${formatReportStatus(report.status)}`
+          `<strong>${escapeHtml(formatOccurrenceType(report.type))}</strong><br/>` +
+            `${escapeHtml(formatReportStatus(report.status))}<br/>` +
+            `${escapeHtml(report.description)}<br/>` +
+            `<strong>Local:</strong> ${escapeHtml(formatAddress(report))}<br/>` +
+            `<strong>Coordenadas:</strong> ${escapeHtml(formatCoordinates(report))}` +
+            imageBlock
         );
 
         marker.addTo(layer);

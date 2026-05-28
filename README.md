@@ -1,6 +1,6 @@
-# Observa Vacacai
+# Observa Vacacaí
 
-Sistema web responsivo para participacao cidada e monitoramento socioambiental do Rio Vacacai, em Sao Gabriel/RS.
+Sistema web responsivo para participação cidadã e monitoramento socioambiental do Rio Vacacaí, em São Gabriel/RS.
 
 ## Arquitetura inicial
 

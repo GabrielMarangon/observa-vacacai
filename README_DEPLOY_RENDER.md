@@ -1,4 +1,4 @@
-# Deploy no Render - Observa Vacacai
+# Deploy no Render - Observa Vacacaí
 
 ## Estrategia recomendada
 
@@ -53,7 +53,7 @@ Exemplo:
 CORS_ORIGIN=https://observa-vacacai-web.onrender.com
 ADMIN_EMAIL=gestor@seudominio.gov.br
 ADMIN_PASSWORD=defina-uma-senha-forte
-ADMIN_NAME=Gestor Observa Vacacai
+ADMIN_NAME=Gestor Observa Vacacaí
 AUTH_TOKEN_SECRET=gere-um-segredo-longo-e-unico
 AUTH_TOKEN_TTL_HOURS=12
 ```

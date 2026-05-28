@@ -6,7 +6,7 @@ export default function RegisterPage() {
       <div className="form-card">
         <h1>Cadastro não obrigatório</h1>
         <p>
-          O uso público do Observa Vacacai não exige cadastro neste momento.
+          O uso público do Observa Vacacaí não exige cadastro neste momento.
           Moradores podem registrar denúncias de forma identificada ou anônima.
         </p>
         <div className="inline-actions">

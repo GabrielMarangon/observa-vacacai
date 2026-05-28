@@ -11,13 +11,13 @@ const features = [
     icon: "L",
     title: "Denúncias ambientais",
     description:
-      "Registre descarte irregular, esgoto, queimadas, erosão e outras ocorrências com foto e localização.",
+      "Registre descarte irregular, esgoto, queimadas, erosão e outras ocorrências com foto e endereço.",
   },
   {
     icon: "M",
     title: "Mapa colaborativo",
     description:
-      "Visualize pontos críticos do Rio Vacacai e acompanhe a distribuição espacial das ocorrências.",
+      "Visualize pontos críticos do Rio Vacacaí e acompanhe a distribuição espacial das ocorrências.",
   },
   {
     icon: "A",
@@ -29,7 +29,7 @@ const features = [
     icon: "G",
     title: "Painel para gestores",
     description:
-      "Filtre denúncias, acompanhe o status, defina prioridades e visualize ocorrências no mapa.",
+      "Filtre denúncias, acompanhe o status, exporte dados e visualize ocorrências de forma didática.",
   },
 ];
 
@@ -37,7 +37,7 @@ const quickAccess = [
   {
     to: "/denuncias/nova",
     title: "Nova denúncia",
-    description: "Envie uma ocorrência com foto, descrição e localização.",
+    description: "Envie uma ocorrência com foto, descrição e endereço do local.",
   },
   {
     to: "/sugestoes",
@@ -52,7 +52,7 @@ const quickAccess = [
   {
     to: "/mapa",
     title: "Mapa interativo",
-    description: "Acompanhe ocorrências e áreas de atenção em um único painel.",
+    description: "Acompanhe ocorrências e alterne entre ruas e satélite em um único painel.",
   },
 ];
 
@@ -103,7 +103,7 @@ export default function HomePage() {
       <section className="hero">
         <div className="hero-copy">
           <span className="eyebrow">Participação cidadã e monitoramento territorial</span>
-          <h1>Observa Vacacai</h1>
+          <h1>Observa Vacacaí</h1>
           <p>
             Plataforma web para moradores, pesquisadores e gestores acompanharem
             ocorrências ambientais, alertas preventivos e a recuperação do Rio
@@ -119,7 +119,7 @@ export default function HomePage() {
           </div>
           <div className="hero-status">
             <StatusBadge tone="info">Monitoramento comunitário ativo</StatusBadge>
-            <StatusBadge tone="success">Estrutura pronta para integração climática</StatusBadge>
+            <StatusBadge tone="success">Painel do gestor com exportação disponível</StatusBadge>
           </div>
         </div>
         <div className="hero-panel">
@@ -127,7 +127,7 @@ export default function HomePage() {
           <div className="hero-card">
             <strong>Painel territorial em evolução</strong>
             <p>
-              Base preparada para integrar denúncias georreferenciadas,
+              Base preparada para integrar denúncias com endereço, foto,
               questionários, camadas de APP e dados de risco.
             </p>
           </div>
@@ -192,7 +192,7 @@ export default function HomePage() {
             description="Transparência, resposta mais rápida e inteligência territorial para o Vacacaí."
           />
           <ul className="bullet-list">
-            <li>Facilitar o envio de denúncias com evidência visual e espacial.</li>
+            <li>Facilitar o envio de denúncias com evidência visual e endereço claro.</li>
             <li>Dar visibilidade a situações de risco e áreas vulneráveis.</li>
             <li>Organizar a resposta dos gestores em um painel único.</li>
             <li>Construir histórico para políticas de prevenção e recuperação ambiental.</li>
