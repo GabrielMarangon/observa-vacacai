@@ -1,27 +1,33 @@
 const homeContent = {
   hero: {
     title: "Observa Vacacaí",
-    subtitle: "Participação cidadã e monitoramento socioambiental em São Gabriel/RS",
+    subtitle: "Denúncias, mapa e alertas para o Rio Vacacaí em São Gabriel/RS",
   },
-  institutionalMessage:
-    "Canal colaborativo para registrar ocorrências, compartilhar alertas e fortalecer o cuidado com o Rio Vacacaí.",
   alerts: [
     {
       id: 1,
-      title: "Nível do rio em observação",
-      severity: "info",
+      title: "Em caso de chuva forte, acompanhe os avisos oficiais.",
+      severity: "warning",
     },
     {
       id: 2,
-      title: "Mutirão de mata ciliar em preparação",
-      severity: "success",
+      title: "Se houver cheia, siga as orientações da Defesa Civil.",
+      severity: "info",
     },
   ],
-  quickLinks: [
-    { label: "Nova denúncia", href: "/denuncias/nova" },
-    { label: "Mapa interativo", href: "/mapa" },
-    { label: "Alertas", href: "/alertas" },
-  ],
+  weatherPanel: {
+    title: "Previsão de chuva e risco de inundação",
+    location: "São Gabriel/RS",
+    summary:
+      "Acompanhe aqui a previsão de chuva e os avisos para a área urbana do Rio Vacacaí.",
+    riskLabel: "Sem dados automáticos",
+    riskTone: "neutral",
+    metrics: [
+      { label: "Chuva em 24h", value: "-- mm" },
+      { label: "Chuva em 48h", value: "-- mm" },
+      { label: "Risco de inundação", value: "Em observação" },
+    ],
+  },
 };
 
 export function getHomeContent(_req, res) {
