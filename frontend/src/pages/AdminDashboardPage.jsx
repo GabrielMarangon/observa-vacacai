@@ -61,6 +61,9 @@ export default function AdminDashboardPage() {
   const [state, setState] = useState({
     loading: true,
     error: "",
+    success: "",
+    deletingId: null,
+    deletingFilter: false,
     reports: [],
     filter: "todos",
   });
@@ -84,6 +87,7 @@ export default function AdminDashboardPage() {
           ...current,
           loading: false,
           error: "",
+          success: "",
           reports: payload.reports,
         }));
       } catch (error) {
@@ -94,6 +98,7 @@ export default function AdminDashboardPage() {
           ...current,
           loading: false,
           error: error.message,
+          success: "",
           reports: [],
         }));
       }
@@ -170,6 +175,96 @@ export default function AdminDashboardPage() {
     exportReportsAsJson(filteredReports);
   }
 
+  async function handleDeleteReport(reportId) {
+    const confirmed = window.confirm(
+      "Deseja excluir esta denúncia? Essa ação remove o registro atual do painel."
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setState((current) => ({
+      ...current,
+      error: "",
+      success: "",
+      deletingId: reportId,
+    }));
+
+    try {
+      const payload = await apiFetch(`/api/admin/reports/${reportId}`, {
+        method: "DELETE",
+        headers: createAuthHeaders(auth.token),
+      });
+
+      setState((current) => ({
+        ...current,
+        deletingId: null,
+        success: payload.message,
+        reports: current.reports.filter((report) => report.id !== reportId),
+      }));
+    } catch (error) {
+      setState((current) => ({
+        ...current,
+        deletingId: null,
+        error: error.message,
+      }));
+    }
+  }
+
+  async function handleDeleteFilteredReports() {
+    if (filteredReports.length === 0) {
+      return;
+    }
+
+    const scopeLabel =
+      state.filter === "todos"
+        ? `todas as ${filteredReports.length} denúncias`
+        : `${filteredReports.length} denúncia(s) com status ${formatReportStatus(state.filter)}`;
+
+    const confirmed = window.confirm(
+      `Deseja excluir ${scopeLabel}? Essa ação remove os registros atuais do painel.`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setState((current) => ({
+      ...current,
+      error: "",
+      success: "",
+      deletingFilter: true,
+    }));
+
+    try {
+      const query =
+        state.filter === "todos"
+          ? ""
+          : `?status=${encodeURIComponent(state.filter)}`;
+
+      const payload = await apiFetch(`/api/admin/reports${query}`, {
+        method: "DELETE",
+        headers: createAuthHeaders(auth.token),
+      });
+
+      setState((current) => ({
+        ...current,
+        deletingFilter: false,
+        success: payload.message,
+        reports: current.reports.filter(
+          (report) => !payload.deletedIds.includes(report.id)
+        ),
+      }));
+    } catch (error) {
+      setState((current) => ({
+        ...current,
+        deletingFilter: false,
+        error: error.message,
+      }));
+    }
+  }
+
   return (
     <section className="page">
       <div className="panel">
@@ -179,7 +274,7 @@ export default function AdminDashboardPage() {
           exportação e dados completos para acompanhamento do atendimento.
         </p>
         <p className="panel-caption">
-          Sessão ativa de {auth.user?.name} ({auth.user?.email}).
+          Sessão ativa do gestor {auth.user?.email}.
         </p>
 
         <div className="dashboard-grid">
@@ -252,11 +347,24 @@ export default function AdminDashboardPage() {
             <button className="button button-secondary" type="button" onClick={handleExportJson}>
               Exportar JSON
             </button>
+            <button
+              className="button button-danger"
+              type="button"
+              onClick={handleDeleteFilteredReports}
+              disabled={state.deletingFilter || filteredReports.length === 0}
+            >
+              {state.deletingFilter ? "Excluindo..." : "Excluir filtro atual"}
+            </button>
           </div>
         </div>
 
+        <p className="toolbar-note">
+          Exclua registros somente após exportar ou confirmar que eles não são mais necessários.
+        </p>
+
         {state.loading ? <p>Carregando denúncias...</p> : null}
         {state.error ? <p className="feedback-error">{state.error}</p> : null}
+        {state.success ? <p className="feedback-success">{state.success}</p> : null}
 
         <div className="table-shell">
           <table className="data-table">
@@ -270,6 +378,7 @@ export default function AdminDashboardPage() {
                 <th>Denunciante</th>
                 <th>Contato</th>
                 <th>Foto</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -303,11 +412,23 @@ export default function AdminDashboardPage() {
                       <span className="cell-note">Sem foto</span>
                     )}
                   </td>
+                  <td>
+                    <div className="table-actions">
+                      <button
+                        className="button button-danger button-small"
+                        type="button"
+                        onClick={() => handleDeleteReport(report.id)}
+                        disabled={state.deletingId === report.id || state.deletingFilter}
+                      >
+                        {state.deletingId === report.id ? "Excluindo..." : "Excluir"}
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
               {!state.loading && filteredReports.length === 0 ? (
                 <tr>
-                  <td colSpan="8">Nenhuma denúncia encontrada para o filtro selecionado.</td>
+                  <td colSpan="9">Nenhuma denúncia encontrada para o filtro selecionado.</td>
                 </tr>
               ) : null}
             </tbody>

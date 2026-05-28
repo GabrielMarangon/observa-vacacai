@@ -122,6 +122,65 @@ a {
   box-shadow: none;
 }
 
+.button-danger {
+  color: white;
+  background: linear-gradient(135deg, #9b2f2f, #c44b4b);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.button-small {
+  padding: 0.65rem 0.95rem;
+  border-radius: 12px;
+  box-shadow: none;
+ }
+
+.daily-alert {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.daily-alert-copy h2 {
+  margin: 0.2rem 0 0.45rem;
+}
+
+.daily-alert-copy p,
+.daily-alert-copy small {
+  color: #466562;
+}
+
+.daily-alert-copy small {
+  display: block;
+  margin-top: 0.55rem;
+}
+
+.daily-alert-success {
+  background: rgba(41, 133, 67, 0.1);
+}
+
+.daily-alert-warning {
+  background: rgba(198, 168, 90, 0.17);
+}
+
+.daily-alert-danger {
+  background: rgba(196, 66, 66, 0.14);
+}
+
+.daily-alert-info,
+.daily-alert-neutral {
+  background: rgba(44, 127, 147, 0.08);
+}
+
 .page {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
@@ -268,7 +327,19 @@ a {
   gap: 0.75rem;
 }
 
+.weather-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .weather-footnote {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #58726f;
+}
+
+.weather-contact-note {
   margin: 0;
   font-size: 0.92rem;
   color: #58726f;
@@ -533,6 +604,12 @@ a {
   font-size: 2rem;
 }
 
+.toolbar-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.92rem;
+  color: #58726f;
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -700,6 +777,12 @@ a {
   font-weight: 600;
 }
 
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .footer {
   padding: 1.2rem;
   text-align: center;
@@ -708,6 +791,10 @@ a {
 
 @media (max-width: 1080px) {
   .topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-alert {
     grid-template-columns: 1fr;
   }
 
@@ -746,5 +833,14 @@ a {
 
   .auth-actions .button {
     flex: 1;
+  }
+
+  .weather-metrics,
+  .weather-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .weather-actions {
+    display: grid;
   }
 }

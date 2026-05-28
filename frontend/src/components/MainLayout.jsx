@@ -4,9 +4,6 @@ import { useAuth } from "../auth/AuthProvider";
 const publicNavItems = [
   { to: "/", label: "Início" },
   { to: "/denuncias/nova", label: "Nova denúncia" },
-  { to: "/sugestoes", label: "Sugestões" },
-  { to: "/questionario", label: "Questionário" },
-  { to: "/alertas", label: "Alertas" },
   { to: "/mapa", label: "Mapa" },
 ];
 
@@ -23,7 +20,7 @@ export default function MainLayout({ children }) {
           <span className="brand-mark">OV</span>
           <span>
             <strong>Observa Vacacaí</strong>
-            <small>Participação cidadã no Rio Vacacaí</small>
+            <small>São Gabriel/RS</small>
           </span>
         </Link>
         <nav className="nav">
@@ -42,10 +39,7 @@ export default function MainLayout({ children }) {
         <div className="auth-actions">
           {auth.isAuthenticated ? (
             <>
-              <span className="auth-chip">{auth.user.name}</span>
-              <Link to="/gestor" className="button button-secondary">
-                Painel
-              </Link>
+              <span className="auth-chip">Gestor conectado</span>
               <button className="button" type="button" onClick={auth.logout}>
                 Sair
               </button>
@@ -59,7 +53,7 @@ export default function MainLayout({ children }) {
       </header>
       <main>{children}</main>
       <footer className="footer">
-        <p>Observa Vacacaí | São Gabriel/RS | Monitoramento socioambiental colaborativo</p>
+        <p>Observa Vacacaí | São Gabriel/RS</p>
       </footer>
     </div>
   );

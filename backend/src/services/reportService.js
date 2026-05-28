@@ -21,6 +21,37 @@ function normalizeCoordinate(value) {
   return Number.isNaN(numberValue) ? Number.NaN : numberValue;
 }
 
+function normalizeId(value) {
+  const id = Number(value);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    throw new Error("Identificador de denúncia inválido.");
+  }
+
+  return id;
+}
+
+function matchesFilters(report, filters = {}) {
+  if (filters.type && report.type !== filters.type) {
+    return false;
+  }
+
+  if (filters.status && report.status !== filters.status) {
+    return false;
+  }
+
+  return true;
+}
+
+function getNextReportId() {
+  const currentMax = memoryStore.reports.reduce(
+    (maxId, report) => Math.max(maxId, Number(report.id) || 0),
+    0
+  );
+
+  return currentMax + 1;
+}
+
 function validateReportPayload(payload) {
   if (!payload.type?.trim()) {
     throw new Error("Informe o tipo da ocorrência.");
@@ -66,15 +97,7 @@ function validateReportPayload(payload) {
 
 export const reportService = {
   async list(filters = {}) {
-    return memoryStore.reports.filter((report) => {
-      if (filters.type && report.type !== filters.type) {
-        return false;
-      }
-      if (filters.status && report.status !== filters.status) {
-        return false;
-      }
-      return true;
-    });
+    return memoryStore.reports.filter((report) => matchesFilters(report, filters));
   },
 
   async create(payload) {
@@ -86,7 +109,7 @@ export const reportService = {
     // O armazenamento em memória fica como camada temporária.
     // A futura persistência em PostgreSQL deve substituir este push.
     const report = {
-      id: memoryStore.reports.length + 1,
+      id: getNextReportId(),
       type: payload.type.trim(),
       description: payload.description.trim(),
       address: payload.address.trim(),
@@ -104,5 +127,33 @@ export const reportService = {
 
     memoryStore.reports.push(report);
     return report;
+  },
+
+  async removeById(reportId) {
+    const normalizedId = normalizeId(reportId);
+    const reportIndex = memoryStore.reports.findIndex((report) => report.id === normalizedId);
+
+    if (reportIndex === -1) {
+      throw new Error("Denúncia não encontrada.");
+    }
+
+    const [removedReport] = memoryStore.reports.splice(reportIndex, 1);
+    return removedReport;
+  },
+
+  async removeMany(filters = {}) {
+    const removedReports = [];
+    const remainingReports = [];
+
+    for (const report of memoryStore.reports) {
+      if (matchesFilters(report, filters)) {
+        removedReports.push(report);
+      } else {
+        remainingReports.push(report);
+      }
+    }
+
+    memoryStore.reports = remainingReports;
+    return removedReports;
   },
 };

@@ -55,3 +55,33 @@ export async function createReport(req, res, next) {
     next(error);
   }
 }
+
+export async function deleteAdminReport(req, res, next) {
+  try {
+    const report = await reportService.removeById(req.params.reportId);
+    res.json({
+      ok: true,
+      message: "Denúncia excluída com sucesso.",
+      deletedId: report.id,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function deleteAdminReports(req, res, next) {
+  try {
+    const removedReports = await reportService.removeMany(req.query);
+    res.json({
+      ok: true,
+      message:
+        removedReports.length > 0
+          ? `${removedReports.length} denúncia(s) excluída(s) com sucesso.`
+          : "Nenhuma denúncia encontrada para exclusão.",
+      deletedCount: removedReports.length,
+      deletedIds: removedReports.map((report) => report.id),
+    });
+  } catch (error) {
+    next(error);
+  }
+}

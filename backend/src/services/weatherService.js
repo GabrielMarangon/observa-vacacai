@@ -13,6 +13,30 @@ const DEFAULT_CONFIG = {
   danger48hMm: 110,
 };
 
+const EMERGENCY_CONTACTS = [
+  {
+    id: "defesa-civil",
+    label: "Defesa Civil",
+    phone: "(55) 99933-5455",
+    href: "tel:+5555999335455",
+    emphasis: "primary",
+  },
+  {
+    id: "prefeitura",
+    label: "Prefeitura",
+    phone: "0800 055 7064",
+    href: "tel:08000557064",
+    emphasis: "secondary",
+  },
+  {
+    id: "bombeiros",
+    label: "Bombeiros",
+    phone: "193",
+    href: "tel:193",
+    emphasis: "secondary",
+  },
+];
+
 const weatherCache = {
   expiresAt: 0,
   data: null,
@@ -83,6 +107,10 @@ function formatUpdatedAt(timezone) {
   }).format(new Date());
 }
 
+function buildEmergencyContacts() {
+  return EMERGENCY_CONTACTS.map((contact) => ({ ...contact }));
+}
+
 function buildRisk({ rain24h, rain48h, maxProbability, config }) {
   if (
     rain24h >= config.danger24hMm ||
@@ -132,6 +160,40 @@ function buildRisk({ rain24h, rain48h, maxProbability, config }) {
     tone: "success",
     summary:
       "Sem previsão de chuva volumosa no momento para a área observada do Rio Vacacaí.",
+  };
+}
+
+function buildDailyNotice(risk, rain24h, rain48h, maxProbability) {
+  const rain24hText = formatMillimeters(rain24h);
+  const rain48hText = formatMillimeters(rain48h);
+  const probabilityText = formatProbability(maxProbability);
+
+  if (risk.level === "high") {
+    return {
+      label: "Alerta vermelho",
+      tone: "danger",
+      title: "Risco elevado para chuva forte e alagamentos",
+      message: `Há previsão de ${rain48hText} nas próximas 48h, com chance de chuva de até ${probabilityText}. Evite áreas ribeirinhas e pontos baixos.`,
+      note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
+    };
+  }
+
+  if (risk.level === "medium" || risk.level === "watch") {
+    return {
+      label: "Alerta amarelo",
+      tone: "warning",
+      title: "Atenção para chuva nas próximas horas",
+      message: `A previsão indica ${rain24hText} em 24h e ${rain48hText} em 48h. Vale acompanhar os avisos locais e observar áreas suscetíveis a alagamento.`,
+      note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
+    };
+  }
+
+  return {
+    label: "Alerta verde",
+    tone: "success",
+    title: "Situação estável no momento",
+    message: `Sem previsão de chuva volumosa. O acumulado estimado é de ${rain24hText} em 24h, com chance máxima de ${probabilityText}.`,
+    note: "Aviso automático do app com base na previsão de chuva disponível no momento.",
   };
 }
 
@@ -201,6 +263,14 @@ function buildAlerts(risk, rain24h, rain48h, maxProbability) {
 
 function buildFallbackContent() {
   return {
+    dailyNotice: {
+      label: "Aviso em atualização",
+      tone: "neutral",
+      title: "A previsão automática está sendo atualizada",
+      message:
+        "Em caso de chuva forte ou situação de risco, acompanhe os avisos oficiais e use os contatos de emergência abaixo.",
+      note: "Aviso automático do app.",
+    },
     alerts: [
       {
         id: 1,
@@ -227,6 +297,7 @@ function buildFallbackContent() {
       ],
       meta: "Fonte meteorológica: Open-Meteo",
     },
+    emergencyContacts: buildEmergencyContacts(),
   };
 }
 
@@ -275,15 +346,17 @@ function buildWeatherContentFromApi(payload, config) {
   const rain48h = sumRain(precipitation, 48);
   const maxProbability = maxValue(precipitationProbability.slice(0, 48));
   const risk = buildRisk({ rain24h, rain48h, maxProbability, config });
+  const dailyNotice = buildDailyNotice(risk, rain24h, rain48h, maxProbability);
 
   return {
+    dailyNotice,
     alerts: buildAlerts(risk, rain24h, rain48h, maxProbability),
     weatherPanel: {
       title: "Previsão de chuva e risco de inundação",
       location: config.locationLabel,
       summary: risk.summary,
-      riskLabel: risk.label,
-      riskTone: risk.tone,
+      riskLabel: dailyNotice.label,
+      riskTone: dailyNotice.tone,
       metrics: [
         { label: "Chuva em 24h", value: formatMillimeters(rain24h) },
         { label: "Chuva em 48h", value: formatMillimeters(rain48h) },
@@ -293,6 +366,7 @@ function buildWeatherContentFromApi(payload, config) {
         config.timezone
       )}`,
     },
+    emergencyContacts: buildEmergencyContacts(),
   };
 }
 
