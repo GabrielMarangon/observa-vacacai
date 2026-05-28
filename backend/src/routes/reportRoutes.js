@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { createReport, listReports } from "../controllers/reportController.js";
+import { createReport, listPublicReports } from "../controllers/reportController.js";
 
 const router = Router();
 
-router.get("/", listReports);
+router.get("/", listPublicReports);
 router.post("/", createReport);
 
 export default router;

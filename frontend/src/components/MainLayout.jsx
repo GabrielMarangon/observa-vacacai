@@ -1,16 +1,21 @@
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../auth/AuthProvider";
 
-const navItems = [
+const publicNavItems = [
   { to: "/", label: "Início" },
   { to: "/denuncias/nova", label: "Nova denúncia" },
   { to: "/sugestoes", label: "Sugestões" },
   { to: "/questionario", label: "Questionário" },
   { to: "/alertas", label: "Alertas" },
   { to: "/mapa", label: "Mapa" },
-  { to: "/gestor", label: "Painel do gestor" },
 ];
 
 export default function MainLayout({ children }) {
+  const auth = useAuth();
+  const navItems = auth.isAuthenticated
+    ? [...publicNavItems, { to: "/gestor", label: "Painel do gestor" }]
+    : publicNavItems;
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -35,12 +40,21 @@ export default function MainLayout({ children }) {
           ))}
         </nav>
         <div className="auth-actions">
-          <Link to="/login" className="button button-secondary">
-            Entrar
-          </Link>
-          <Link to="/cadastro" className="button">
-            Criar conta
-          </Link>
+          {auth.isAuthenticated ? (
+            <>
+              <span className="auth-chip">{auth.user.name}</span>
+              <Link to="/gestor" className="button button-secondary">
+                Painel
+              </Link>
+              <button className="button" type="button" onClick={auth.logout}>
+                Sair
+              </button>
+            </>
+          ) : (
+            <Link to="/admin/login" className="button button-secondary">
+              Acesso do gestor
+            </Link>
+          )}
         </div>
       </header>
       <main>{children}</main>

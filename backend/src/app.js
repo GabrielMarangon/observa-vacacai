@@ -1,6 +1,8 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import adminRoutes from "./routes/adminRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import contentRoutes from "./routes/contentRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 
@@ -35,6 +37,8 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "observa-vacacai-api" });
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/content", contentRoutes);
 app.use("/api/reports", reportRoutes);
 

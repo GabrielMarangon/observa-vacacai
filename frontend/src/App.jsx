@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -15,14 +16,22 @@ export default function App() {
     <MainLayout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Navigate to="/admin/login" replace />} />
+        <Route path="/admin/login" element={<LoginPage />} />
         <Route path="/cadastro" element={<RegisterPage />} />
         <Route path="/denuncias/nova" element={<ReportPage />} />
         <Route path="/sugestoes" element={<SuggestionsPage />} />
         <Route path="/questionario" element={<SurveyPage />} />
         <Route path="/alertas" element={<AlertsPage />} />
         <Route path="/mapa" element={<MapPage />} />
-        <Route path="/gestor" element={<AdminDashboardPage />} />
+        <Route
+          path="/gestor"
+          element={
+            <ProtectedRoute>
+              <AdminDashboardPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </MainLayout>

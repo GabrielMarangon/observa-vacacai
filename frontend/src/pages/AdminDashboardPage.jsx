@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "../auth/AuthProvider";
 import { apiFetch } from "../lib/api";
 import { formatOccurrenceType, formatReportStatus } from "../lib/formatters";
+import { createAuthHeaders } from "../lib/api";
 
 export default function AdminDashboardPage() {
+  const auth = useAuth();
   const [state, setState] = useState({
     loading: true,
     error: "",
@@ -11,11 +14,17 @@ export default function AdminDashboardPage() {
   });
 
   useEffect(() => {
+    if (!auth.token) {
+      return undefined;
+    }
+
     let active = true;
 
     async function loadReports() {
       try {
-        const payload = await apiFetch("/api/reports");
+        const payload = await apiFetch("/api/admin/reports", {
+          headers: createAuthHeaders(auth.token),
+        });
         if (!active) {
           return;
         }
@@ -43,7 +52,7 @@ export default function AdminDashboardPage() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [auth.token]);
 
   const filteredReports = useMemo(() => {
     if (state.filter === "todos") {
@@ -57,6 +66,7 @@ export default function AdminDashboardPage() {
       total: state.reports.length,
       abertas: state.reports.filter((report) => report.status === "recebida").length,
       analise: state.reports.filter((report) => report.status === "em_analise").length,
+      identificadas: state.reports.filter((report) => !report.anonymous).length,
     };
   }, [state.reports]);
 
@@ -67,6 +77,9 @@ export default function AdminDashboardPage() {
         <p>
           Estrutura inicial para listagem de denúncias, filtros e leitura rápida
           das ocorrências registradas.
+        </p>
+        <p className="panel-caption">
+          Sessão ativa de {auth.user?.name} ({auth.user?.email}).
         </p>
         <div className="dashboard-grid">
           <div className="metric-card">
@@ -80,6 +93,10 @@ export default function AdminDashboardPage() {
           <div className="metric-card">
             <strong>{metrics.analise}</strong>
             <span>Em análise</span>
+          </div>
+          <div className="metric-card">
+            <strong>{metrics.identificadas}</strong>
+            <span>Identificadas</span>
           </div>
         </div>
         <div className="toolbar">
@@ -106,6 +123,9 @@ export default function AdminDashboardPage() {
                 <th>Tipo</th>
                 <th>Status</th>
                 <th>Descrição</th>
+                <th>Modalidade</th>
+                <th>Denunciante</th>
+                <th>Contato</th>
                 <th>Localização</th>
               </tr>
             </thead>
@@ -115,6 +135,9 @@ export default function AdminDashboardPage() {
                   <td>{formatOccurrenceType(report.type)}</td>
                   <td>{formatReportStatus(report.status)}</td>
                   <td>{report.description}</td>
+                  <td>{report.anonymous ? "Anônima" : "Identificada"}</td>
+                  <td>{report.reporterName || "Não informado"}</td>
+                  <td>{report.contact || "Não informado"}</td>
                   <td>
                     {report.latitude}, {report.longitude}
                   </td>

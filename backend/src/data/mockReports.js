@@ -15,6 +15,8 @@ export const mockReports = [
     description: "Acúmulo de resíduos sólidos na margem.",
     status: "recebida",
     anonymous: false,
+    reporterName: "Moradora da Vila Maria",
+    contact: "(55) 99999-1111",
     createdAt: "2026-03-20T09:15:00.000Z",
     latitude: -30.335,
     longitude: -54.327,

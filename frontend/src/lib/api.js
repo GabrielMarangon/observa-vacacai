@@ -1,5 +1,13 @@
 import { API_BASE_URL } from "../config";
 
+export function createAuthHeaders(token) {
+  return token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
+}
+
 export async function apiFetch(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: {

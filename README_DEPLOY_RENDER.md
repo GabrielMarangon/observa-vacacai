@@ -41,11 +41,21 @@ git push -u origin main
 
 - `DATABASE_URL`
 - `CORS_ORIGIN`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `ADMIN_NAME`
+- `AUTH_TOKEN_SECRET`
+- `AUTH_TOKEN_TTL_HOURS`
 
 Exemplo:
 
 ```text
 CORS_ORIGIN=https://observa-vacacai-web.onrender.com
+ADMIN_EMAIL=gestor@seudominio.gov.br
+ADMIN_PASSWORD=defina-uma-senha-forte
+ADMIN_NAME=Gestor Observa Vacacai
+AUTH_TOKEN_SECRET=gere-um-segredo-longo-e-unico
+AUTH_TOKEN_TTL_HOURS=12
 ```
 
 ### Frontend
@@ -83,3 +93,5 @@ VITE_API_BASE_URL=https://URL_REAL_DA_API.onrender.com
 - O frontend ja usa `VITE_API_BASE_URL`, entao nao depende de URL fixa de localhost em producao.
 - A persistencia definitiva ainda depende da configuracao do banco de dados remoto.
 - Como hoje o projeto usa armazenamento em memoria para denuncias, o app pode subir mesmo antes da configuracao final do banco.
+- O envio de denuncias continua publico, sem login obrigatorio para moradores.
+- O acesso ao painel do gestor depende da configuracao das variaveis administrativas do backend.

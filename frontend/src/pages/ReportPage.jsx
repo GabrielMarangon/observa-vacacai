@@ -72,7 +72,10 @@ export default function ReportPage() {
     <section className="page narrow-page">
       <div className="form-card">
         <h1>Nova denúncia</h1>
-        <p>Fluxo inicial para registro de ocorrências ambientais com georreferenciamento.</p>
+        <p>
+          Você pode registrar uma ocorrência ambiental sem criar conta, de forma
+          identificada ou anônima.
+        </p>
         <form className="stack-form" onSubmit={handleSubmit}>
           <label>
             Tipo da ocorrência
