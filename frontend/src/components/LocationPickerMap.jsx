@@ -28,6 +28,11 @@ export default function LocationPickerMap({
   const mapElementRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const markerRef = useRef(null);
+  const onChangeRef = useRef(onChange);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   useEffect(() => {
     if (!mapElementRef.current || mapInstanceRef.current) {
@@ -61,7 +66,7 @@ export default function LocationPickerMap({
       .addTo(map);
 
     map.on("click", (event) => {
-      onChange({
+      onChangeRef.current?.({
         latitude: event.latlng.lat.toFixed(6),
         longitude: event.latlng.lng.toFixed(6),
       });
@@ -74,7 +79,7 @@ export default function LocationPickerMap({
       mapInstanceRef.current = null;
       markerRef.current = null;
     };
-  }, [onChange]);
+  }, []);
 
   useEffect(() => {
     const map = mapInstanceRef.current;
