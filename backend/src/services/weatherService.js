@@ -253,11 +253,6 @@ function buildAlerts(risk, rain24h, rain48h, maxProbability) {
       title: `Sem indicativo de chuva forte. Acumulado previsto: ${rain24hText} em 24h.`,
       severity: "success",
     },
-    {
-      id: 2,
-      title: "O painel continuará atualizando automaticamente ao longo do dia.",
-      severity: "neutral",
-    },
   ];
 }
 
